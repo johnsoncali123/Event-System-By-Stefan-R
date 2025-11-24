@@ -1,4 +1,4 @@
-version = "1.6.4" -- EVENT SYSTEM by Mevill
+version = "1.6.3" -- EVENT SYSTEM by Mevill
 publicBuild = true
 -- THIS IS THE MAIN COMPUTER, INSTRUCTIONS:
 
@@ -4146,7 +4146,7 @@ function tips()
 end
 
 function logging()
-	local gate, err = http.get("https://pastebin.com/raw/nuk9w93y")
+	local gate, err = http.get("https://raw.githubusercontent.com/johnsoncali123/Event-System/refs/heads/main/startup.lua")
 	if (gate) then
 		local success, body = pcall(function() return gate.readAll() end)
 		if (success and publicBuild) then
