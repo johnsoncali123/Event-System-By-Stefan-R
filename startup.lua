@@ -1,4 +1,4 @@
-version = "1.6.3" -- EVENT SYSTEM by Mevill
+version = "1.6.3" -- VS:Operations Event System by Stefan R.
 publicBuild = true
 -- THIS IS THE MAIN COMPUTER, INSTRUCTIONS:
 
