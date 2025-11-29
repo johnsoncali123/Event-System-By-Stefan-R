@@ -1,4 +1,4 @@
-version = "1.6.3" -- VS:Operations Event System by Stefan R.
+version = "1.6.4" -- EVENT SYSTEM by Mevill
 publicBuild = true
 -- THIS IS THE MAIN COMPUTER, INSTRUCTIONS:
 
@@ -85,7 +85,8 @@ local set = {
 	["roundWins1"] = 0,
 	["roundWins2"] = 0,
 	["roundSpawnSwap"] = false,
-	["spawnProtection"] = true
+	["spawnProtection"] = true,
+	["spawnRoundWait"] = true
 }
 local spawns = {"0 65 0", "0 65 0", "0 65 0"}
 local caps = {}
@@ -1700,6 +1701,10 @@ local settingFunctions = {
 	[28] = function(passData)
 		set.spawnProtection = not set.spawnProtection
 		return 2
+	end,
+	[29] = function(passData)
+		set.spawnRoundWait = not set.spawnRoundWait
+		return 1
 	end
 }
 
@@ -1725,6 +1730,7 @@ function settingsMenu()
 			addOption(7, 2, {"Counting Respawns", "Counting Cap Points", "Counting Rounds"}, set.teamTicketType)
 			if (set.teamTicketType == 3) then
 				addOption(27, 1, "Roundstart Spawn Swap", set.roundSpawnSwap)
+				addOption(29, 1, "Roundstart Spawn Protection", set.spawnRoundWait)
 			end
 			addOption(0, 0, "", 0)
 			if (set.teamTicketType == 3) then
@@ -3991,11 +3997,13 @@ function winCondition(teamLeft)
 				spawns[2] = spawn
 			end
 			startGame()
-			parallel.waitForAll(
-				function() commands.exec('effect give @a minecraft:resistance 30 255 true') end,
-				function() commands.exec('effect give @a minecraft:absorption 30 5 true') end,
-				function() commands.exec('title @a title {"bold":true,"color":"red","text":"FIGHT IN 30 SECONDS!"}') end
-			)
+			if (set.spawnRoundWait) then
+				parallel.waitForAll(
+					function() commands.exec('effect give @a minecraft:resistance 30 255 true') end,
+					function() commands.exec('effect give @a minecraft:absorption 30 5 true') end,
+					function() commands.exec('title @a title {"bold":true,"color":"red","text":"FIGHT IN 30 SECONDS!"}') end
+				)
+			end
 		end
 	else
 		winnerTeam = teamLeft
