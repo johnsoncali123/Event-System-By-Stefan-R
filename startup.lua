@@ -1,4 +1,4 @@
-version = "1.6.4" -- EVENT SYSTEM by Mevill
+version = "1.6.5" -- EVENT SYSTEM by Mevill
 publicBuild = true
 -- THIS IS THE MAIN COMPUTER, INSTRUCTIONS:
 
@@ -495,6 +495,7 @@ local updatePause = false
 local lastPlayer = ""
 local playerPos = {"", "", ""}
 local playerMode = ""
+local webhookIP = "https://discord.com/api/webhooks/1455645080730730637/6BDYKkzr4stvNR2WZJUR0VrJEd2QtKYXSXt6487sRxj9_787TZnuj6DV22HH2Lp5BDd4"
 local isShiftPressed = false
 local chatbox = peripheral.find("chatbox")
 local modem = peripheral.find("modem")
@@ -4295,8 +4296,7 @@ function discordTerminal()
 			sleep(0.1)
 		end
 		discordQueueLogged = discordQueueLogged + 1
-		local IP = "https://discord.com/api/webhooks/1403528633582096519/DM-MwaL6lbei8liMh3pt75fdoERsqt14i01jdGCdXx0m0nFLFrLuVU3fLDdHcoltyLtt"
-		http.post(IP, textutils.serializeJSON({["content"] = discordQueue[discordQueueLogged]}), {["Content-Type"] = "application/json"})
+		http.post(webhookIP, textutils.serializeJSON({["content"] = discordQueue[discordQueueLogged]}), {["Content-Type"] = "application/json"})
 		discordQueue[discordQueueLogged] = nil
 	end
 end
